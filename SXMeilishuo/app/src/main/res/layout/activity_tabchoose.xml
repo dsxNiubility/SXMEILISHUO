@@ -1,61 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-         android:id="@+id/mytabhost"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/realtabcontent"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"/>
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.app.FragmentTabHost
+            android:id="@android:id/tabhost"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
-            <LinearLayout
-                android:id="@+id/widget_layout_home"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/whitesmoke"
-                android:orientation="vertical"/>
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0"/>
+        </android.support.v4.app.FragmentTabHost>
 
-            <LinearLayout
-                android:id="@+id/widget_layout_shopping"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/blanchedalmond"
-                android:orientation="vertical"/>
+        <Button
+            android:id="@+id/tab_camera"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/tab_camera"
+            android:shadowColor="@null"/>
 
-            <LinearLayout
-                android:id="@+id/widget_layout_camera"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/aquamarine"
-                android:orientation="vertical"/>
+    </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/widget_layout_message"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FCD209"
-                android:orientation="vertical"/>
-
-            <LinearLayout
-                android:id="@+id/widget_layout_myinfo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/goldenrod"
-                android:orientation="vertical"/>
-
-        </FrameLayout>
-
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-</TabHost>
+</LinearLayout>
