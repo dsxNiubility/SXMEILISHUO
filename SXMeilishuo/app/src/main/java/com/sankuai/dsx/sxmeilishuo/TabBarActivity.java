@@ -1,5 +1,6 @@
 package com.sankuai.dsx.sxmeilishuo;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,7 +21,7 @@ public class TabBarActivity extends FragmentActivity {
         TabHost tabhost = (TabHost) findViewById(R.id.mytabhost);
 
         tabhost.setup();
-        tabhost.addTab(tabhost.newTabSpec("one").setIndicator("首页").setContent(R.id.widget_layout_home));
+        tabhost.addTab(tabhost.newTabSpec("one").setIndicator("首页",getResources().getDrawable(R.drawable.tabhost_home)).setContent(R.id.widget_layout_home));
         tabhost.addTab(tabhost.newTabSpec("two").setIndicator("购物").setContent(R.id.widget_layout_shopping));
         tabhost.addTab(tabhost.newTabSpec("middle").setIndicator("相机").setContent(R.id.widget_layout_shopping));
         tabhost.addTab(tabhost.newTabSpec("three").setIndicator("消息").setContent(R.id.widget_layout_message));
