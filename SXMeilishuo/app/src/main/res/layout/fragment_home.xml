@@ -43,8 +43,37 @@
 
     </RelativeLayout>
 
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gold"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/darkorange"
+                android:layout_height="120dp">
+
+            </LinearLayout>
+
+            <com.youth.banner.Banner
+                android:id="@+id/top_banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/ivory"
+                android:layout_height="500dp">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>
