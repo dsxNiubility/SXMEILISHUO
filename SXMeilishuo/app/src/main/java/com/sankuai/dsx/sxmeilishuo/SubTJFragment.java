@@ -22,9 +22,12 @@ import java.util.List;
 
 public class SubTJFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
     private List<String> mDatas;
     private HomeAdapter mAdapter;
+    boolean mNeedScroll = false;
+
+    private int mLastY;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,18 +40,6 @@ public class SubTJFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_sub_tuijian, container, false);
     }
 
-    private Handler handler = new Handler() {
-
-        // 处理子线程给我们发送的消息。
-        @Override
-        public void handleMessage(android.os.Message msg) {
-            if(msg.what == 50){
-
-            }
-        };
-    };
-
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -60,9 +51,17 @@ public class SubTJFragment extends Fragment {
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.d("move", String.valueOf(mRecyclerView.getY()));
-                Log.d("move2", String.valueOf(mRecyclerView.getScrollY()));
-                return true;
+                return !mNeedScroll;
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if ((dy < 0) && (recyclerView.computeVerticalScrollOffset() == 0)){
+                    mNeedScroll = false;
+                }
             }
         });
     }
@@ -75,6 +74,7 @@ public class SubTJFragment extends Fragment {
             mDatas.add("" + (char) i);
         }
     }
+
 
     class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
     {

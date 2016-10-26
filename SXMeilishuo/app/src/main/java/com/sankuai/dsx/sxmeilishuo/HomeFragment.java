@@ -2,6 +2,7 @@ package com.sankuai.dsx.sxmeilishuo;
 
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -42,12 +43,15 @@ public class HomeFragment extends Fragment {
     Banner mBanner;
     String[] images,titles;
 
+    public static final int BANNER_HEAGHT = 525; // 轮播图高度
+
     private ScrollView mScrollView;
     private IndicatorViewPager indicatorViewPager;
     private LayoutInflater inflate;
     private String[] names = {"CUPCAKE", "DONUT", "FROYO", "GINGERBREAD", "HONEYCOMB", "ICE CREAM SANDWICH", "JELLY BEAN", "KITKAT"};
     private ScrollIndicatorView scrollIndicatorView;
     private int unSelectTextColor;
+    private Fragment mCurrentSubFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,18 +79,18 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-//                if(event.getAction()==MotionEvent.ACTION_MOVE){
-//
-//                }
-//                Log.d("move", String.valueOf(mScrollView.getY()));
-//                Log.d("move2", String.valueOf(mScrollView.getScrollY()));
-
-                if (mScrollView.getScrollY() >= 521){
-                    mScrollView.setScrollY(521);
-                    return true;
-                }else {
-                    return false;
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (mCurrentSubFragment instanceof SubTJFragment) {
+                        SubTJFragment frag = (SubTJFragment) mCurrentSubFragment;
+                        if (mScrollView.getScrollY() < BANNER_HEAGHT) {
+                            return false;
+                        } else {
+                            mScrollView.setScrollY(BANNER_HEAGHT);
+                            frag.mNeedScroll = true;
+                        }
+                    }
                 }
+                return true;
             }
         });
 
@@ -197,12 +201,14 @@ public class HomeFragment extends Fragment {
 
         @Override
         public Fragment getFragmentForPage(int position) {
-
-            if (position % 2 == 0){
-                return new SubTJFragment();
-            }else {
-                return new SubNSZFragment();
+            if (position == 0){
+                if (mCurrentSubFragment == null){
+                    mCurrentSubFragment = new SubTJFragment();
+                }
+                return mCurrentSubFragment;
             }
+
+            return new SubNSZFragment();
         }
 
         @Override
