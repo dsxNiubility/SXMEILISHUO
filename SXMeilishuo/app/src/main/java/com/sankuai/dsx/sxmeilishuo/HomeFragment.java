@@ -1,38 +1,38 @@
 package com.sankuai.dsx.sxmeilishuo;
 
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.Fragment;
+import android.annotation.TargetApi;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ScrollingView;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.DrawableBar;
-import com.shizhefei.view.indicator.slidebar.ScrollBar;
+import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.Arrays;
-import java.util.logging.Logger;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
  * Created by dsx on 16/10/18.
@@ -43,12 +43,16 @@ public class HomeFragment extends Fragment {
     Banner mBanner;
     String[] images,titles;
 
-    public static final int BANNER_HEAGHT = 525; // 轮播图高度
+    public static final int BANNER_HEAGHT = 200; // 轮播图高度
+    public static final int VIEWPAGER_SCROLLBAR_HEIGHT = 50; // 滑动标题栏高度
+    public static final int TOP_TOOLBAR_HEIGHT = 48; // 顶部导航栏高度
+    public static final int TABHOST_HEIGHT = 50; // 底部tabbar的高度
+    public static final int STATUSBAR_HEIGHT = 23; // 顶部电池状态栏
 
     private ScrollView mScrollView;
     private IndicatorViewPager indicatorViewPager;
     private LayoutInflater inflate;
-    private String[] names = {"CUPCAKE", "DONUT", "FROYO", "GINGERBREAD", "HONEYCOMB", "ICE CREAM SANDWICH", "JELLY BEAN", "KITKAT"};
+    private String[] names = {"推荐", "关注", "搭配", "美容", "逆生长", "生活", "JELLY BEAN", "KITKAT"};
     private ScrollIndicatorView scrollIndicatorView;
     private int unSelectTextColor;
     private Fragment mCurrentSubFragment;
@@ -59,8 +63,6 @@ public class HomeFragment extends Fragment {
         images = getResources().getStringArray(R.array.url);
         titles = getResources().getStringArray(R.array.title);
 
-
-
     }
 
     @Nullable
@@ -69,6 +71,7 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -82,10 +85,10 @@ public class HomeFragment extends Fragment {
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     if (mCurrentSubFragment instanceof SubTJFragment) {
                         SubTJFragment frag = (SubTJFragment) mCurrentSubFragment;
-                        if (mScrollView.getScrollY() < BANNER_HEAGHT) {
+                        if (mScrollView.getScrollY() < dipToPix(BANNER_HEAGHT)) {
                             return false;
                         } else {
-                            mScrollView.setScrollY(BANNER_HEAGHT);
+                            mScrollView.setScrollY(dipToPix(BANNER_HEAGHT));
                             frag.mNeedScroll = true;
                         }
                     }
@@ -115,25 +118,29 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int widthPixels= dm.widthPixels;
+        int heightPixels= dm.heightPixels;
+        float density = dm.density;
+        float screenHeight = heightPixels / density ;
+        float pageHeight = screenHeight - TABHOST_HEIGHT - TOP_TOOLBAR_HEIGHT - VIEWPAGER_SCROLLBAR_HEIGHT - STATUSBAR_HEIGHT;
+
+        Log.d("height", String.valueOf(pageHeight));
+        Log.d("height2", String.valueOf(dipToPix(pageHeight)));
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.moretab_viewPager);
+        viewPager.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, dipToPix(pageHeight)));
         scrollIndicatorView = (ScrollIndicatorView) view.findViewById(R.id.moretab_indicator);
-        scrollIndicatorView.setBackgroundColor(Color.RED);
-        scrollIndicatorView.setScrollBar(new DrawableBar(getContext(), R.drawable.round_border_white_selector, ScrollBar.Gravity.CENTENT_BACKGROUND) {
-            @Override
-            public int getHeight(int tabHeight) {
-                return tabHeight - dipToPix(12);
-            }
 
-            @Override
-            public int getWidth(int tabWidth) {
-                return tabWidth - dipToPix(12);
-            }
-        });
+        ColorBar colorBar = new ColorBar(getContext(), getContext().getResources().getColor(R.color.meili_pink), 5);
+        scrollIndicatorView.setScrollBar(colorBar);
 
-        unSelectTextColor = Color.WHITE;
-        // 设置滚动监听
-        scrollIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.RED, unSelectTextColor));
+        unSelectTextColor = getContext().getResources().getColor(R.color.meili_gray);
+
+        float unSelectSize = 16;
+        float selectSize = unSelectSize * 1.2f;
+        scrollIndicatorView.setSplitAuto(false);
+        scrollIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(unSelectTextColor,unSelectTextColor).setSize(selectSize, unSelectSize));
 
         viewPager.setOffscreenPageLimit(2);
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
@@ -184,7 +191,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 12;
+            return names.length;
         }
 
         @Override
@@ -195,8 +202,11 @@ public class HomeFragment extends Fragment {
             TextView textView = (TextView) convertView;
             textView.setText(names[position % names.length]);
             int padding = dipToPix(10);
-            textView.setPadding(padding, 0, padding, 0);
+            int witdh = getTextWidth(textView);
+            textView.setWidth((int) (witdh * 1.6f) + padding );
+
             return convertView;
+
         }
 
         @Override
@@ -213,9 +223,19 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getItemPosition(Object object) {
-            //这是ViewPager适配器的特点,有两个值 POSITION_NONE，POSITION_UNCHANGED，默认就是POSITION_UNCHANGED,
-            // 表示数据没变化不用更新.notifyDataChange的时候重新调用getViewForPage
-            return PagerAdapter.POSITION_NONE;
+            return PagerAdapter.POSITION_UNCHANGED;
+        }
+
+        private int getTextWidth(TextView textView) {
+            if (textView == null) {
+                return 0;
+            }
+            Rect bounds = new Rect();
+            String text = textView.getText().toString();
+            Paint paint = textView.getPaint();
+            paint.getTextBounds(text, 0, text.length(), bounds);
+            int width = bounds.left + bounds.width();
+            return width;
         }
 
     }
