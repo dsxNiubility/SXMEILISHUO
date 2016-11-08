@@ -22,6 +22,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
+import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse.BannerData.BannerSubData.BannerItem;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -30,9 +32,18 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerClickListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static com.sankuai.dsx.sxmeilishuo.NetworkService.API_URL;
 
 /**
  * Created by dsx on 16/10/18.
@@ -41,7 +52,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 public class HomeFragment extends Fragment {
 
     Banner mBanner;
-    String[] images,titles;
+    List<String> mImages,mTitles;
 
     public static final int BANNER_HEAGHT = 200; // 轮播图高度
     public static final int VIEWPAGER_SCROLLBAR_HEIGHT = 50; // 滑动标题栏高度
@@ -60,9 +71,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        images = getResources().getStringArray(R.array.url);
-        titles = getResources().getStringArray(R.array.title);
-
     }
 
     @Nullable
@@ -97,26 +105,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-        images = getResources().getStringArray(R.array.url);
-        titles = getResources().getStringArray(R.array.title);
         mBanner = (Banner)view.findViewById(R.id.top_banner);
-
-        //简单使用
-        mBanner.setImages(Arrays.asList(images)).setImageLoader(new GlideImageLoader()).start();
-
-        //设置banner样式
-        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
-        mBanner.isAutoPlay(true);
-        mBanner.setDelayTime(3000);
-        mBanner.setIndicatorGravity(BannerConfig.CENTER);
-        mBanner.start();
-        mBanner.setOnBannerClickListener(new OnBannerClickListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Toast.makeText(getActivity().getApplicationContext(), "点击：" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        requestForBanner();
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int widthPixels= dm.widthPixels;
@@ -146,7 +136,50 @@ public class HomeFragment extends Fragment {
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
         inflate = LayoutInflater.from(getActivity().getApplicationContext());
         indicatorViewPager.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager()));
+    }
 
+    private void requestForBanner(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        NetworkService networkService = retrofit.create(NetworkService.class);
+        Call<BannerResponse> call = networkService.bannerItems();
+
+        call.enqueue(new Callback<BannerResponse>() {
+            @Override
+            public void onResponse(Call<BannerResponse> call, Response<BannerResponse> response) {
+                if (response != null && response.body() != null &&response.body().getData() != null){
+                    mImages = new ArrayList<>();
+                    // 先不考虑那么多判空了，崩就崩吧
+                    List<BannerItem> itemList = response.body().getData().getSubData().getList();
+                    if (itemList.size() < 1) return;
+                    for (BannerItem item : itemList){
+                        mImages.add(item.getImage());
+                    }
+                    //简单使用
+                    mBanner.setImages(mImages).setImageLoader(new GlideImageLoader()).start();
+
+                    //设置banner样式
+                    mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+                    mBanner.isAutoPlay(true);
+                    mBanner.setDelayTime(3000);
+                    mBanner.setIndicatorGravity(BannerConfig.CENTER);
+                    mBanner.start();
+                    mBanner.setOnBannerClickListener(new OnBannerClickListener() {
+                        @Override
+                        public void OnBannerClick(int position) {
+                            Toast.makeText(getActivity().getApplicationContext(), "点击：" + position, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BannerResponse> call, Throwable t) {
+                Log.d("", String.valueOf(t));
+            }
+        });
     }
 
 
