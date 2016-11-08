@@ -239,7 +239,6 @@ public class HomeFragment extends Fragment {
             textView.setWidth((int) (witdh * 1.6f) + padding );
 
             return convertView;
-
         }
 
         @Override
@@ -270,7 +269,6 @@ public class HomeFragment extends Fragment {
             int width = bounds.left + bounds.width();
             return width;
         }
-
     }
 
     /**
