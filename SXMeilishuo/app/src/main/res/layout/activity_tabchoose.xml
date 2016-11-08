@@ -33,6 +33,7 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/tab_camera"
+            style="?android:attr/borderlessButtonStyle"
             android:shadowColor="@null"/>
 
     </RelativeLayout>

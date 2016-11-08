@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
+              android:background="@color/blanchedalmond"
               android:layout_height="150dp"
-              android:background="@color/bisque"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -55,9 +55,16 @@
                 android:layout_height="60dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
                 tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@id/img_one"
+                android:layout_toRightOf="@id/img_one"
+                android:layout_marginLeft="-10dp"
+                android:background="@mipmap/meilishuo_vip"
+                tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/title_one"
@@ -78,6 +85,11 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:textColor="@color/meili_light_gray"
+                android:textSize="12sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:lines="1"
+                android:singleLine="true"
                 tools:text="自我介绍"/>
 
         </RelativeLayout>
@@ -94,9 +106,16 @@
                 android:layout_height="60dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
                 tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@id/img_two"
+                android:layout_toRightOf="@id/img_two"
+                android:layout_marginLeft="-10dp"
+                android:background="@mipmap/meilishuo_vip"
+                tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/title_two"
@@ -117,6 +136,11 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:textColor="@color/meili_light_gray"
+                android:textSize="12sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:lines="1"
+                android:singleLine="true"
                 tools:text="自我介绍"/>
 
         </RelativeLayout>
@@ -133,9 +157,16 @@
                 android:layout_height="60dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
                 tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@id/img_three"
+                android:layout_toRightOf="@id/img_three"
+                android:layout_marginLeft="-10dp"
+                android:background="@mipmap/meilishuo_vip"
+                tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/title_three"
@@ -156,6 +187,11 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:textColor="@color/meili_light_gray"
+                android:textSize="12sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:lines="1"
+                android:singleLine="true"
                 tools:text="自我介绍"/>
 
         </RelativeLayout>
@@ -172,9 +208,16 @@
                 android:layout_height="60dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
                 tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@id/img_four"
+                android:layout_toRightOf="@id/img_four"
+                android:layout_marginLeft="-10dp"
+                android:background="@mipmap/meilishuo_vip"
+                tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/title_four"
@@ -194,6 +237,11 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
+                android:textSize="12sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:lines="1"
+                android:singleLine="true"
                 android:textColor="@color/meili_light_gray"
                 tools:text="自我介绍"/>
 

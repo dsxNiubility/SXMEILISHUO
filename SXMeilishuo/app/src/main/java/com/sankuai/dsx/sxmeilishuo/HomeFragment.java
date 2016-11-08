@@ -43,7 +43,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static com.sankuai.dsx.sxmeilishuo.NetworkService.API_URL;
+import static com.sankuai.dsx.sxmeilishuo.NetworkService.MCE_MOGU_BASE_URL;
 
 /**
  * Created by dsx on 16/10/18.
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment {
 
     private void requestForBanner(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_URL)
+                .baseUrl(MCE_MOGU_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         NetworkService networkService = retrofit.create(NetworkService.class);
