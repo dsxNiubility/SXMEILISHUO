@@ -15,17 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse.JumpItem;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
-import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse.ProfessionalData.ProfessionalItem;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerClickListener;
+import com.sankuai.dsx.sxmeilishuo.bean.UserInfoItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +45,7 @@ public class SubTJFragment extends Fragment {
     private List<String> mDatas;
 
     private List<JumpItem> mJumpItemList;
-    private List<ProfessionalItem> mProfessionalItemList;
+    private List<UserInfoItem> mProfessionalItemList;
 
     boolean mNeedScroll = false;
 
