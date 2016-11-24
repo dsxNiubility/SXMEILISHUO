@@ -36,6 +36,12 @@
             style="?android:attr/borderlessButtonStyle"
             android:shadowColor="@null"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/meili_light_gray"/>
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -3,7 +3,8 @@
               xmlns:tool="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="vertical"
+                android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,6 +46,7 @@
             android:layout_toRightOf="@id/main_item_icon"
             android:textColor="@color/meili_gray"
             android:textSize="14sp"
+            android:lines="1"
             tool:ignore="RtlHardcoded"
             tool:text="给你最真实的穿搭体现，然后巴里巴拉"/>
 
@@ -113,7 +115,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/meili_light_gray"/>
+        android:background="@color/meili_light_gray2"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

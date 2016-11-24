@@ -79,7 +79,7 @@ public class SubTJFragment extends Fragment {
         mRootRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mHomeAdapter = new HomeAdapter();
         mRootRecyclerView.setAdapter(mHomeAdapter);
-        mRootRecyclerView.addItemDecoration(new LinearSpaceItemDecoration(dipToPix(20)));
+        mRootRecyclerView.addItemDecoration(new LinearSpaceItemDecoration(dipToPix(15)));
 
         mRootRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override

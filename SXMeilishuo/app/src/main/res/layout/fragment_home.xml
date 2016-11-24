@@ -41,6 +41,12 @@
             android:background="@color/white"
             tools:ignore="ContentDescription,RtlHardcoded"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/meili_light_gray"/>
+
     </RelativeLayout>
 
     <ScrollView
@@ -62,6 +68,10 @@
                 android:id="@+id/moretab_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/meili_light_gray"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/moretab_viewPager"
