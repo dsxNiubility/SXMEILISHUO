@@ -23,8 +23,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:textSize="10sp"
-        android:textColor="@drawable/tabhost_text_pink"
-        android:background="@drawable/tabhost_text_pink">
+        android:textColor="@color/tabhost_choice_color">
     </TextView>
 
 </LinearLayout>
