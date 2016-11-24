@@ -274,12 +274,11 @@ public class HomeFragment extends Fragment {
     /**
      * 根据dip值转化成px值
      *
-     * @param dip
-     * @return
+     * @param dip 锚点
+     * @return 像素
      */
     private int dipToPix(float dip) {
-        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
-        return size;
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
     }
 
 }

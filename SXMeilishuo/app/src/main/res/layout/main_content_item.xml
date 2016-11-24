@@ -7,15 +7,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/coral">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/main_item_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="10dp"
-            android:background="@color/bisque"
             tool:ignore="ContentDescription"/>
 
         <ImageView
@@ -26,7 +24,6 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="-20dp"
             android:layout_toRightOf="@id/main_item_icon"
-            android:background="@color/orange"
             tool:ignore="ContentDescription,RtlHardcoded"/>
 
         <TextView
@@ -42,7 +39,7 @@
 
         <TextView
             android:id="@+id/main_item_desc"
-            android:layout_width="250dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
             android:layout_toRightOf="@id/main_item_icon"
@@ -53,12 +50,12 @@
 
         <Button
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@color/gold"
+            android:background="@drawable/main_card_watch_shape"
             android:text="+ 关注"
             android:textColor="@color/meili_pink"
             android:textSize="18sp"
@@ -68,12 +65,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent">
+        android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/main_center_img"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
             tool:ignore="ContentDescription"/>
 
         <ImageView
@@ -87,6 +85,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/main_item_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -119,32 +118,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blanchedalmond">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/main_item_good"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="20dp"
-            android:background="@color/colorAccent"
+            android:layout_margin="15dp"
+            android:background="@mipmap/card_meili_zan"
             tool:ignore="ContentDescription"/>
 
         <ImageView
             android:id="@+id/main_item_msg"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_toRightOf="@id/main_item_good"
-            android:background="@color/colorAccent"
+            android:background="@mipmap/card_meili_msg"
             tool:ignore="ContentDescription,RtlHardcoded"/>
 
         <ImageView
             android:id="@+id/main_item_share"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_toRightOf="@id/main_item_msg"
-            android:background="@color/colorAccent"
+            android:background="@mipmap/card_meili_sharee"
             tool:ignore="ContentDescription,RtlHardcoded"/>
 
         <ImageView
@@ -152,8 +151,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_margin="20dp"
-            android:background="@color/colorAccent"
+            android:layout_margin="15dp"
+            android:background="@mipmap/card_meili_more"
             tool:ignore="ContentDescription,RtlHardcoded"/>
 
     </RelativeLayout>

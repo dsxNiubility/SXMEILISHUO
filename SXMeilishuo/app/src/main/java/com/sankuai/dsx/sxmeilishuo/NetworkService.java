@@ -3,6 +3,7 @@ package com.sankuai.dsx.sxmeilishuo;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
+import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -24,4 +25,6 @@ public interface NetworkService {
     @GET("/2.0/posting/expert_users?offset=0&show=home&limit=10")
     Call<ProfessionalResponse> professionalItems();
 
+    @GET("/2.0/posting/recommend_list?limit=15") // 核心展示内容
+    Call<RootListResponse> mainContentItems();
 }

@@ -1,5 +1,6 @@
 package com.sankuai.dsx.sxmeilishuo;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,11 +9,14 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +25,8 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse.JumpItem;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
+import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse;
+import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse.RootListData.RootListItem;
 import com.sankuai.dsx.sxmeilishuo.bean.UserInfoItem;
 
 import java.util.ArrayList;
@@ -46,6 +52,7 @@ public class SubTJFragment extends Fragment {
 
     private List<JumpItem> mJumpItemList;
     private List<UserInfoItem> mProfessionalItemList;
+    private List<RootListItem> mMainContentItemList;
 
     boolean mNeedScroll = false;
 
@@ -68,11 +75,11 @@ public class SubTJFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
         mRootRecyclerView = (RecyclerView)view.findViewById(R.id.id_recyclerview);
         mRootRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mHomeAdapter = new HomeAdapter();
         mRootRecyclerView.setAdapter(mHomeAdapter);
+        mRootRecyclerView.addItemDecoration(new LinearSpaceItemDecoration(dipToPix(20)));
 
         mRootRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -95,6 +102,7 @@ public class SubTJFragment extends Fragment {
         mProfessionalItemList = new ArrayList<>();
         requestForJumpData();
         requestForProfessionalData();
+        requestForMainContentData();
     }
 
     private void requestForJumpData(){
@@ -149,15 +157,31 @@ public class SubTJFragment extends Fragment {
         });
     }
 
-    protected void initData()
-    {
-        mDatas = new ArrayList<>();
-        for (int i = 'A'; i < 'z'; i++)
-        {
-            mDatas.add("" + (char) i);
-        }
-    }
+    private void requestForMainContentData(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SOCIAL_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        NetworkService networkService = retrofit.create(NetworkService.class);
+        Call<RootListResponse> call = networkService.mainContentItems();
 
+        call.enqueue(new Callback<RootListResponse>() {
+            @Override
+            public void onResponse(Call<RootListResponse> call, Response<RootListResponse> response) {
+                if (response != null && response.body() != null &&response.body().getData() != null){
+                    mMainContentItemList = response.body().getData().getList();
+                    if (mHomeAdapter != null){
+                        mHomeAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RootListResponse> call, Throwable t) {
+                Log.d("", String.valueOf(t));
+            }
+        });
+    }
 
     class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
     {
@@ -175,7 +199,7 @@ public class SubTJFragment extends Fragment {
                         false),200);
             }else {
                holder = new MyViewHolder(LayoutInflater.from(
-                        getActivity()).inflate(R.layout.recycle_temp_item, parent,
+                        getActivity()).inflate(R.layout.main_content_item, parent,
                         false),300);
             }
             return holder;
@@ -185,7 +209,7 @@ public class SubTJFragment extends Fragment {
         public void onBindViewHolder(final MyViewHolder holder, int position)
         {
             if (position == 1){
-                if (mProfessionalItemList.size() < 4)return;
+                if (mProfessionalItemList == null || mProfessionalItemList.size() < 4)return;
 
 
                 holder.txt_one.setText(mProfessionalItemList.get(0).getNickname());
@@ -243,7 +267,61 @@ public class SubTJFragment extends Fragment {
 
 
             }else if (position > 1) {
-                holder.tv.setText(mDatas.get(position));
+                if (mMainContentItemList == null || mMainContentItemList.size() < 1)return;
+
+
+                    WindowManager manager = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+                    DisplayMetrics dm=new DisplayMetrics();
+                    manager.getDefaultDisplay().getMetrics(dm);
+                    int center_width = dm.widthPixels;
+                    int center_height = 0;
+                    if (mMainContentItemList.get(position-2).getPinfo().getFeed_pic_url().length() > 0 ) {
+                        if (mMainContentItemList.get(position-2).getPinfo().getFeed_pic_width() > 0) {
+                            center_height = mMainContentItemList.get(position - 2).getPinfo().getFeed_pic_height() /
+                                    mMainContentItemList.get(position - 2).getPinfo().getFeed_pic_width() * center_width;
+                        }else {
+                            center_height = 500;
+                        }
+                    }else {
+                        center_height = mMainContentItemList.get(position - 2).getPinfo().getPost_cover_height() /
+                                mMainContentItemList.get(position - 2).getPinfo().getPost_cover_width() * center_width;
+                    }
+                    ViewGroup.LayoutParams para = holder.img_bigCenter.getLayoutParams();
+                    para.height = center_height;
+
+//                    Log.d("aabbb", mMainContentItemList.get(position - 2).getPinfo().getFeed_pic_width() + "分隔" +mMainContentItemList.get(position - 2).getPinfo().getFeed_pic_height());
+//                    Log.d("aabbc", para.width + "分隔" +para.height);
+
+                    holder.img_bigCenter.setLayoutParams(para);
+
+                Glide.with(getContext()).load(mMainContentItemList.get(position-2).getUinfo().getAvatar_a()).asBitmap().into(new BitmapImageViewTarget(holder.img_icon){
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        holder.img_icon.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+
+                Glide.with(getContext()).load(mMainContentItemList.get(position-2).getUinfo().getIdentity_img()).asBitmap().into(new BitmapImageViewTarget(holder.img_vip){
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        holder.img_vip.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+
+                String centerImgUrl = mMainContentItemList.get(position-2).getPinfo().getFeed_pic_url().length() > 0 ?
+                        mMainContentItemList.get(position-2).getPinfo().getFeed_pic_url() :
+                        mMainContentItemList.get(position-2).getPinfo().getPost_cover();
+                Glide.with(getContext()).load(centerImgUrl).into(holder.img_bigCenter);
+
+                holder.tv_title.setText(mMainContentItemList.get(position-2).getUinfo().getNickname());
+                holder.tv_desc.setText(mMainContentItemList.get(position-2).getUinfo().getAbout_me());
+                holder.tv_comment.setText(mMainContentItemList.get(position-2).getPinfo().getPost_desc());
             }
         }
 
@@ -257,7 +335,7 @@ public class SubTJFragment extends Fragment {
         @Override
         public int getItemCount()
         {
-            return mDatas.size();
+            return mMainContentItemList == null ? 2 : mMainContentItemList.size() + 2;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder
@@ -281,6 +359,15 @@ public class SubTJFragment extends Fragment {
             ImageView img_four;
             TextView txt_four;
             TextView desc_four;
+
+            // 主要界面的item
+            ImageView img_icon;
+            ImageView img_vip;
+            ImageView img_bigCenter;
+            TextView tv_title;
+            TextView tv_desc;
+            TextView tv_time_ago;
+            TextView tv_comment;
 
             public MyViewHolder(View view ,int type)
             {
@@ -311,7 +398,13 @@ public class SubTJFragment extends Fragment {
                     desc_four = (TextView)view.findViewById(R.id.desc_four);
 
                 }else {
-                    tv = (TextView) view.findViewById(R.id.id_num);
+                    img_icon = (ImageView) view.findViewById(R.id.main_item_icon);
+                    img_vip = (ImageView) view.findViewById(R.id.main_item_vip);
+                    img_bigCenter = (ImageView) view.findViewById(R.id.main_center_img);
+                    tv_title = (TextView)view.findViewById(R.id.main_item_title);
+                    tv_time_ago = (TextView)view.findViewById(R.id.main_item_time);
+                    tv_desc = (TextView)view.findViewById(R.id.main_item_desc);
+                    tv_comment = (TextView)view.findViewById(R.id.main_item_comment);
                 }
             }
 
@@ -354,5 +447,15 @@ public class SubTJFragment extends Fragment {
                 }
             }
         }
+    }
+
+    /**
+     * 根据dip值转化成px值
+     *
+     * @param dip 锚点
+     * @return 像素
+     */
+    private int dipToPix(float dip) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
     }
 }

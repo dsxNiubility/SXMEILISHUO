@@ -23,7 +23,7 @@ public class GoodsInfoItem {
     private String description;
     private int updated_by;
     private long created_at;
-    private int  price_min_pc;
+    private double  price_min_pc;
     private int  recommend_pic_id;
     private String extra_pc;
     private int created_by;
@@ -35,10 +35,27 @@ public class GoodsInfoItem {
     private String url;
     private long twitter_id;
     private long updated_at;
-    private int price;
+    private double price;
     private int source;
     private int goods_id;
     private String show_pic;
+
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getPrice_min_pc() {
+        return price_min_pc;
+    }
+
+    public void setPrice_min_pc(double price_min_pc) {
+        this.price_min_pc = price_min_pc;
+    }
 
     public int getPic_height() {
         return pic_height;
@@ -176,14 +193,6 @@ public class GoodsInfoItem {
         this.created_at = created_at;
     }
 
-    public int getPrice_min_pc() {
-        return price_min_pc;
-    }
-
-    public void setPrice_min_pc(int price_min_pc) {
-        this.price_min_pc = price_min_pc;
-    }
-
     public int getRecommend_pic_id() {
         return recommend_pic_id;
     }
@@ -270,14 +279,6 @@ public class GoodsInfoItem {
 
     public void setUpdated_at(long updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public int getSource() {
