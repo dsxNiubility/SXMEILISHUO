@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment {
         viewPager.setOffscreenPageLimit(2);
         indicatorViewPager = new IndicatorViewPager(scrollIndicatorView, viewPager);
         inflate = LayoutInflater.from(getActivity().getApplicationContext());
-        indicatorViewPager.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager()));
+        indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
     }
 
     private void requestForBanner(){
