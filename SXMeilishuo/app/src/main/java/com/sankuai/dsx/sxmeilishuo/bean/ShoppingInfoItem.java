@@ -1,5 +1,7 @@
 package com.sankuai.dsx.sxmeilishuo.bean;
 
+import java.util.List;
+
 /**
  * Created by dsx on 2016/11/28.
  */
@@ -26,8 +28,15 @@ public class ShoppingInfoItem {
     private String subtitle;
     private int topic_id;
 
-    // 还有个数组
+    private List<TwittersInfoItem> twitters;
 
+    public List<TwittersInfoItem> getTwitters() {
+        return twitters;
+    }
+
+    public void setTwitters(List<TwittersInfoItem> twitters) {
+        this.twitters = twitters;
+    }
 
     public int getTotal() {
         return total;
