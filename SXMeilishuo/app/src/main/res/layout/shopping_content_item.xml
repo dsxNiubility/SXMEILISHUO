@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/coral"
+            android:layout_height="30dp">
+
+            <ImageView
+                android:id="@+id/shop_item_user_icon"
+                android:layout_width="26dp"
+                android:background="@color/blanchedalmond"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_height="26dp"/>
+
+            <TextView
+                android:id="@+id/shop_item_username"
+                android:layout_toRightOf="@+id/shop_item_user_icon"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="翘臀打桩机"
+                android:layout_marginRight="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/meili_gray"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/shop_content_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/shop_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Baby这位准妈妈很会穿喔"
+            android:layout_marginTop="45dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/meili_gray"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText"/>
+
+        <TextView
+            android:id="@+id/shop_item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="- 这么穿美到窒息 -"
+            android:layout_marginTop="85dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/meili_gray"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="110dp"
+            tools:text="60款商品"/>
+
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/shop_triangle_img"
+            android:layout_width="20dp"
+            android:background="@color/colorPrimary"
+            android:layout_height="10dp"
+            tools:ignore="ContentDescription"/>
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_twitters_recy"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/meili_light_gray2"/>
+
+</LinearLayout>

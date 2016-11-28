@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:gravity="center_horizontal"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_margin="10dp"
+        android:background="@color/bisque"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/shop_twitters_center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/meili_light_gray"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="0.5dp"
+            android:background="@color/meili_light_gray"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/meili_light_gray"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="match_parent"
+            android:background="@color/meili_light_gray"
+            tools:ignore="RtlHardcoded"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/shop_twitter_title"
+        android:layout_width="80dp"
+        android:lines="1"
+        android:singleLine="true"
+        android:layout_height="wrap_content"
+        tools:text="Baby这位准妈妈很会穿喔"
+        android:textColor="@color/meili_gray"
+        android:textSize="13sp"
+        tools:ignore="HardcodedText"/>
+
+    <TextView
+        android:id="@+id/shop_twitter_price"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        tools:text="￥198"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/meili_pink"
+        android:textSize="13sp"
+        android:gravity="center"
+        tools:ignore="HardcodedText"/>
+
+</LinearLayout>

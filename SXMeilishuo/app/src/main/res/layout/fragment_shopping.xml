@@ -1,8 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:background="@color/blanchedalmond">
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/white"
+            android:src="@drawable/nav_search"
+            tools:ignore="ContentDescription,RtlHardcoded"/>
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/shop_top_haowu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="好物"
+                android:textSize="20dp"
+                android:textColor="@color/meili_gray"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                tools:ignore="HardcodedText,RtlHardcoded,SpUsage"/>
+
+            <TextView
+                android:id="@+id/shop_top_pingpai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="品牌"
+                android:textSize="20dp"
+                android:textColor="@color/meili_gray"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                tools:ignore="HardcodedText,RtlHardcoded,SpUsage"/>
+
+            <View
+                android:id="@+id/top_line_left"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:background="@color/meili_pink"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="2dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="visible"
+                tools:ignore="RtlHardcoded"/>
+
+            <View
+                android:id="@+id/top_line_right"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:background="@color/meili_pink"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="2dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="invisible"
+                tools:ignore="RtlHardcoded"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            tools:ignore="ContentDescription,RtlHardcoded"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/meili_light_gray"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_recyclerview"
+        android:dividerHeight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/meili_light_gray2"/>
+
 
 </LinearLayout>

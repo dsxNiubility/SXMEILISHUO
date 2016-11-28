@@ -22,8 +22,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sankuai.dsx.sxmeilishuo.bean.BannerItem;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
-import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse.BannerData.BannerSubData.BannerItem;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
