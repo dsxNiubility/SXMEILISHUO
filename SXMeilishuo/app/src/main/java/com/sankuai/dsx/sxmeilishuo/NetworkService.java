@@ -4,6 +4,7 @@ import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse;
+import com.sankuai.dsx.sxmeilishuo.bean.ShoppingContentResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -27,4 +28,7 @@ public interface NetworkService {
 
     @GET("/2.0/posting/recommend_list?limit=15") // 核心展示内容
     Call<RootListResponse> mainContentItems();
+
+    @GET("file:///android_asset/test.json") // 购物页展示内容
+    Call<ShoppingContentResponse> shoppingContentItems();
 }
