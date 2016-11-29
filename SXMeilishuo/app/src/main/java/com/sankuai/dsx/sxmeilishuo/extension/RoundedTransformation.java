@@ -1,4 +1,4 @@
-package com.sankuai.dsx.sxmeilishuo;
+package com.sankuai.dsx.sxmeilishuo.extension;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

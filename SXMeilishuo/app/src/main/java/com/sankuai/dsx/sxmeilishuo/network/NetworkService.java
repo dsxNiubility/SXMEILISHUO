@@ -1,4 +1,4 @@
-package com.sankuai.dsx.sxmeilishuo;
+package com.sankuai.dsx.sxmeilishuo.network;
 
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;

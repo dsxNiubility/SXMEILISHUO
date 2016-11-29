@@ -1,4 +1,4 @@
-package com.sankuai.dsx.sxmeilishuo;
+package com.sankuai.dsx.sxmeilishuo.home;
 
 import android.annotation.TargetApi;
 import android.graphics.Paint;
@@ -22,8 +22,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sankuai.dsx.sxmeilishuo.network.NetworkService;
+import com.sankuai.dsx.sxmeilishuo.R;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerItem;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
+import com.sankuai.dsx.sxmeilishuo.extension.GlideImageLoader;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -33,7 +36,6 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,7 +45,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static com.sankuai.dsx.sxmeilishuo.NetworkService.MCE_MOGU_BASE_URL;
+import static com.sankuai.dsx.sxmeilishuo.network.NetworkService.MCE_MOGU_BASE_URL;
 
 /**
  * Created by dsx on 16/10/18.

@@ -1,4 +1,4 @@
-package com.sankuai.dsx.sxmeilishuo;
+package com.sankuai.dsx.sxmeilishuo.home;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,12 +22,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.sankuai.dsx.sxmeilishuo.network.NetworkService;
+import com.sankuai.dsx.sxmeilishuo.R;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse.JumpItem;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse.RootListData.RootListItem;
 import com.sankuai.dsx.sxmeilishuo.bean.UserInfoItem;
+import com.sankuai.dsx.sxmeilishuo.extension.LinearSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +41,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.sankuai.dsx.sxmeilishuo.NetworkService.MCE_MOGU_BASE_URL;
-import static com.sankuai.dsx.sxmeilishuo.NetworkService.SOCIAL_BASE_URL;
+import static com.sankuai.dsx.sxmeilishuo.network.NetworkService.SOCIAL_BASE_URL;
 
 /**
  * Created by dsx on 16/10/24.

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.sankuai.dsx.platform.SXUtils;
 import com.sankuai.dsx.sxmeilishuo.bean.ShoppingContentResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ShoppingInfoItem;
+import com.sankuai.dsx.sxmeilishuo.root.TabBarActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;

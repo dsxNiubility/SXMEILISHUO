@@ -1,19 +1,20 @@
-package com.sankuai.dsx.sxmeilishuo;
+package com.sankuai.dsx.sxmeilishuo.root;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.sankuai.dsx.sxmeilishuo.others.MessageFragment;
+import com.sankuai.dsx.sxmeilishuo.others.MyInfoFragment;
 import com.sankuai.dsx.sxmeilishuo.R;
+import com.sankuai.dsx.sxmeilishuo.shopping.ShoppingFragment;
+import com.sankuai.dsx.sxmeilishuo.home.HomeFragment;
+
 /**
  * Created by dsx on 16/10/18.
  * index

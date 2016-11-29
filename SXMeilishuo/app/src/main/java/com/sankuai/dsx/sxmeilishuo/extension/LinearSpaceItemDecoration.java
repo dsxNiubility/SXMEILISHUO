@@ -1,4 +1,4 @@
-package com.sankuai.dsx.sxmeilishuo;
+package com.sankuai.dsx.sxmeilishuo.extension;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
