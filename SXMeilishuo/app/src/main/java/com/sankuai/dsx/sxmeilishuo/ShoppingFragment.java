@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.gson.Gson;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerItem;
@@ -43,6 +44,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -96,22 +98,11 @@ public class ShoppingFragment extends Fragment {
         LinearLayoutManager linearManager = new LinearLayoutManager(getContext());
         linearManager.setOrientation(LinearLayoutManager.VERTICAL);
         mAllRecycleView.setLayoutManager(linearManager);
+        mAllRecycleView.addItemDecoration(new LinearSpaceItemDecoration(dipToPix(15)));
         clickTopLine(mHaowu);
 
-        mSubCateItems = new ArrayList<>();
-        mSubCateItems.add("星期一");
-        mSubCateItems.add("星期er");
-        mSubCateItems.add("星期sa");
-        mSubCateItems.add("星期ss");
-        mSubCateItems.add("星期55");
-        mSubCateItems.add("星期66");
-        mSubCateItems.add("星期一");
-        mSubCateItems.add("星期er");
-        mSubCateItems.add("星期sa");
-        mSubCateItems.add("星期ss");
-        mSubCateItems.add("星期55");
-        mSubCateItems.add("星期66");
-
+        String[] cateLists = {"全部","穿搭","服装","鞋包配","美容美妆","生活方式","品牌"};
+        mSubCateItems = Arrays.asList(cateLists);
 
         requestForTopData();
         requestForSubData();
@@ -308,7 +299,9 @@ public class ShoppingFragment extends Fragment {
                 @Override
                 public void onBindViewHolder(final MarketRecyHolder holder, int position) {
                     if (position > mMarketsItems.size() - 1) return;
-                    Glide.with(getContext()).load(mMarketsItems.get(position).getImage()).into(holder.mCenterImg);
+                    Glide.with(getContext()).load(mMarketsItems.get(position).getImage())
+                            .diskCacheStrategy(DiskCacheStrategy.SOURCE)//这一行是为了解决 RGB_565转换ARGB_8888 图片会出现浅绿的bug
+                            .into(holder.mCenterImg);
                 }
 
                 @Override
@@ -338,7 +331,9 @@ public class ShoppingFragment extends Fragment {
                 @Override
                 public void onBindViewHolder(final CategoryRecyHolder holder, int position) {
                     if (position > mCateItems.size() - 1) return;
-                    Glide.with(getContext()).load(mCateItems.get(position).getImage()).into(holder.mCenterImg);
+                    Glide.with(getContext()).load(mCateItems.get(position).getImage())
+                            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                            .into(holder.mCenterImg);
                 }
 
                 @Override
@@ -369,6 +364,10 @@ public class ShoppingFragment extends Fragment {
                 public void onBindViewHolder(final SubCateRecyHolder holder, int position) {
                     if (position > mSubCateItems.size() - 1) return;
                     holder.mTitleView.setText(mSubCateItems.get(position));
+
+                    if (position == 0){
+                        holder.mTitleView.setSelected(true);
+                    }
                 }
 
                 @Override
@@ -471,7 +470,7 @@ public class ShoppingFragment extends Fragment {
 
                         @Override
                         public int getItemCount() {
-                            return mTwittersInfoItems == null ? 0 : mTwittersInfoItems.size();
+                            return mTwittersInfoItems == null ? 0 : mTwittersInfoItems.size() - 1;
                         }
 
                         class ShopTwittersRecyHolder extends RecyclerView.ViewHolder{

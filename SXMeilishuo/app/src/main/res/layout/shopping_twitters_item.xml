@@ -9,12 +9,12 @@
     <RelativeLayout
         android:layout_width="80dp"
         android:layout_margin="10dp"
-        android:background="@color/bisque"
         android:layout_height="80dp">
 
         <ImageView
             android:id="@+id/shop_twitters_center"
             android:layout_width="match_parent"
+            android:scaleType="matrix"
             android:layout_height="match_parent"/>
 
         <View
@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         tools:text="￥198"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:textColor="@color/meili_pink"
         android:textSize="13sp"
         android:gravity="center"

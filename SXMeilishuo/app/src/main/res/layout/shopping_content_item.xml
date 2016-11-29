@@ -3,23 +3,31 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-    android:background="@color/cornsilk">
+              android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="230dp">
+
+        <ImageView
+            android:id="@+id/shop_content_img"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/coral"
+            android:background="@drawable/shop_item_user_bg_shape"
             android:layout_height="30dp">
 
             <ImageView
                 android:id="@+id/shop_item_user_icon"
                 android:layout_width="26dp"
-                android:background="@color/blanchedalmond"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
                 android:layout_height="26dp"
@@ -38,22 +46,21 @@
                 android:textColor="@color/meili_gray"
                 android:textSize="13sp"
                 tools:ignore="HardcodedText,RtlHardcoded"/>
-
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/shop_content_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
         <TextView
             android:id="@+id/shop_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Baby这位准妈妈很会穿喔"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="60dp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/meili_gray"
+            android:textColor="@color/white"
+            android:shadowColor="@color/meili_gray"
+            android:shadowDy="3"
+            android:shadowDx="3"
+            android:shadowRadius="1.5"
             android:textSize="25sp"
             tools:ignore="HardcodedText"/>
 
@@ -62,9 +69,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="- 这么穿美到窒息 -"
-            android:layout_marginTop="85dp"
+            android:layout_marginTop="100dp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/meili_gray"
+            android:textColor="@color/white"
+            android:shadowColor="@color/meili_gray"
+            android:shadowDy="3"
+            android:shadowDx="3"
+            android:shadowRadius="1.5"
             android:textSize="18sp"
             tools:ignore="HardcodedText"/>
 
@@ -72,25 +83,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="110dp"
-            tools:text="60款商品"/>
+            android:layout_marginTop="130dp"
+            android:height="30dp"
+            android:text="60款商品"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/meili_pink"
+            tools:ignore="HardcodedText,UnusedAttribute"/>
 
         <ImageView
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/shop_triangle_img"
             android:layout_width="20dp"
-            android:background="@color/colorPrimary"
+            android:background="@mipmap/meili_shop_triangle"
             android:layout_height="10dp"
+            android:layout_marginBottom="-1dp"
             tools:ignore="ContentDescription"/>
-
     </RelativeLayout>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/id_twitters_recy"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/meili_light_gray2"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
