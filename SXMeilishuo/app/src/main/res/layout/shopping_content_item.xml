@@ -3,7 +3,8 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content"
+    android:background="@color/cornsilk">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +22,8 @@
                 android:background="@color/blanchedalmond"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
-                android:layout_height="26dp"/>
+                android:layout_height="26dp"
+                tools:ignore="RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/shop_item_username"
@@ -35,7 +37,7 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/meili_gray"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText"/>
+                tools:ignore="HardcodedText,RtlHardcoded"/>
 
         </RelativeLayout>
 
@@ -88,7 +90,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/id_twitters_recy"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:background="@color/meili_light_gray2"/>
 
 </LinearLayout>
