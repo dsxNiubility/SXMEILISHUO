@@ -1,27 +1,13 @@
 package com.sankuai.dsx.sxmeilishuo.home;
 
-import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.sankuai.dsx.platform.Base.BaseDataCallBacks;
-import com.sankuai.dsx.platform.Base.BaseLoaderCallBacks;
-import com.sankuai.dsx.platform.Base.BaseModel;
-import com.sankuai.dsx.platform.Base.BaseModelImplements;
-import com.sankuai.dsx.sxmeilishuo.bean.BannerItem;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse;
-import com.sankuai.dsx.sxmeilishuo.extension.GlideImageLoader;
 import com.sankuai.dsx.sxmeilishuo.network.NetworkService;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerClickListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

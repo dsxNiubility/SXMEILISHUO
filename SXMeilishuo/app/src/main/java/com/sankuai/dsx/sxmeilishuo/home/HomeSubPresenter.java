@@ -1,7 +1,6 @@
 package com.sankuai.dsx.sxmeilishuo.home;
 
 import com.sankuai.dsx.platform.Base.BaseDataCallBacks;
-import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.RootListResponse;

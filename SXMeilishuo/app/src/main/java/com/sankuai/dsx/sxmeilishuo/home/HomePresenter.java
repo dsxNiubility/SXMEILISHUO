@@ -2,9 +2,6 @@ package com.sankuai.dsx.sxmeilishuo.home;
 
 import com.sankuai.dsx.platform.Base.BaseDataCallBacks;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
-import com.sankuai.dsx.sxmeilishuo.shopping.ShoppingContract;
-import com.sankuai.dsx.sxmeilishuo.shopping.ShoppingModel;
-import com.sankuai.dsx.sxmeilishuo.shopping.ShoppingPresenter;
 
 /**
  * Created by dsx on 2016/12/1.

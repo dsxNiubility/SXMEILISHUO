@@ -11,7 +11,6 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.sankuai.dsx.sxmeilishuo.network.NetworkService;
 import com.sankuai.dsx.sxmeilishuo.R;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse.JumpItem;
@@ -35,14 +33,6 @@ import com.sankuai.dsx.sxmeilishuo.extension.LinearSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.sankuai.dsx.sxmeilishuo.network.NetworkService.SOCIAL_BASE_URL;
 
 /**
  * Created by dsx on 16/10/24.

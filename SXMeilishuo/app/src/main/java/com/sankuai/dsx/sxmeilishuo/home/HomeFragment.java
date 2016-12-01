@@ -23,7 +23,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sankuai.dsx.sxmeilishuo.network.NetworkService;
 import com.sankuai.dsx.sxmeilishuo.R;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerItem;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
@@ -39,14 +38,7 @@ import com.youth.banner.listener.OnBannerClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static com.sankuai.dsx.sxmeilishuo.network.NetworkService.MCE_MOGU_BASE_URL;
 
 /**
  * Created by dsx on 16/10/18.
