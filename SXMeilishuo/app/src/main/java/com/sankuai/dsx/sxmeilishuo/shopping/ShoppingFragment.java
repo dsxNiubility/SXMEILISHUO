@@ -2,6 +2,7 @@ package com.sankuai.dsx.sxmeilishuo.shopping;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,7 +52,7 @@ import java.util.List;
  * Created by dsx on 16/10/18.
  */
 
-public class ShoppingFragment extends Fragment {
+public class ShoppingFragment extends Fragment implements ShoppingContract.View{
 
     private TextView mHaowu;
     private TextView mPingpai;
@@ -72,6 +73,8 @@ public class ShoppingFragment extends Fragment {
     private ShopContentRecyAdapter mShopContentRecyAdapter;
     private SubCateRecyAdapter mSubCateRecyAdapter;
     private ShopTwittersAdapter mShopTwittersAdapter;
+
+    private ShoppingPresenter mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,7 +107,9 @@ public class ShoppingFragment extends Fragment {
         String[] cateLists = {"全部","穿搭","服装","鞋包配","美容美妆","生活方式","品牌"};
         mSubCateItems = Arrays.asList(cateLists);
 
-        requestForTopData();
+//        requestForTopData();
+        mPresenter = ShoppingPresenter.presenter(this,new ShoppingModel(getLoaderManager()));
+        mPresenter.getTopData(getContext());
         requestForSubData();
     }
 
@@ -168,6 +173,41 @@ public class ShoppingFragment extends Fragment {
 //        mShopContentRecyAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void setPresenter(@NonNull ShoppingContract.Presenter presenter) {
+
+    }
+
+    @Override
+    public void setTopData(ShoppingHeaderResponse response) {
+        if (response.getData() != null) {
+            if (response.getData().getBanner() != null) {
+                mBannerItems = response.getData().getBanner().getList();
+            }
+
+            if (response.getData().getMarketing() != null) {
+                mMarketsItems = response.getData().getMarketing().getList();
+            }
+
+            if (response.getData().getCategory() != null) {
+                mCateItems = response.getData().getCategory().getList();
+            }
+        }
+        mShopAdapter.notifyDataSetChanged();
+        mMarketRecyAdapter.notifyDataSetChanged();
+        mCategoryRecyAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setSubRecycleViewContent(ShoppingContentResponse data) {
+
+    }
+
+    @Override
+    public boolean isFragmentDetach() {
+        return false;
+    }
+
     class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder>
     {
         @Override
@@ -195,6 +235,7 @@ public class ShoppingFragment extends Fragment {
         {
             if (position == 0){
 
+                if (mBannerItems == null || mBannerItems.size() < 1) return;
                 List<String> bannerImgsUrl = new ArrayList<>();
                 for (BannerItem item : mBannerItems){
                     bannerImgsUrl.add(item.getImage());

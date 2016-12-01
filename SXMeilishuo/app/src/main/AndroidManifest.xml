@@ -11,6 +11,7 @@
 
     <application
         android:allowBackup="true"
+        android:name="com.sankuai.dsx.platform.Base.BaseApplication"
         android:icon="@mipmap/app_icon_meilishuo"
         android:label="@string/app_name"
         android:supportsRtl="true"
