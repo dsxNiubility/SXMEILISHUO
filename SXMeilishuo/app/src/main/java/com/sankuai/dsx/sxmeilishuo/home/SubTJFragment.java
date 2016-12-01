@@ -3,6 +3,7 @@ package com.sankuai.dsx.sxmeilishuo.home;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -47,7 +48,7 @@ import static com.sankuai.dsx.sxmeilishuo.network.NetworkService.SOCIAL_BASE_URL
  * Created by dsx on 16/10/24.
  */
 
-public class SubTJFragment extends Fragment {
+public class SubTJFragment extends Fragment implements HomeContract.SubView{
 
     RecyclerView mRootRecyclerView;
     private List<String> mDatas;
@@ -60,6 +61,8 @@ public class SubTJFragment extends Fragment {
 
     private HomeAdapter mHomeAdapter;
     private HomeAdapter.MyViewHolder.HorRecyAdapter mHorRecyAdapter;
+
+    private HomeSubPresenter mPresenter;
 
     private int mLastY;
 
@@ -102,87 +105,43 @@ public class SubTJFragment extends Fragment {
 
         mJumpItemList = new ArrayList<>();
         mProfessionalItemList = new ArrayList<>();
-        requestForJumpData();
-        requestForProfessionalData();
-        requestForMainContentData();
+
+        mPresenter = HomeSubPresenter.presenter(this,new HomeModel());
+        mPresenter.start();
     }
 
-    private void requestForJumpData(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(SOCIAL_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        NetworkService networkService = retrofit.create(NetworkService.class);
-        Call<JumpResponse> call = networkService.jumpItems();
-
-        call.enqueue(new Callback<JumpResponse>() {
-            @Override
-            public void onResponse(Call<JumpResponse> call, Response<JumpResponse> response) {
-                if (response != null && response.body() != null &&response.body().getData() != null){
-                    mJumpItemList = response.body().getData();
-                    if (mHorRecyAdapter != null){
-                        mHorRecyAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JumpResponse> call, Throwable t) {
-                Log.d("", String.valueOf(t));
-            }
-        });
+    @Override
+    public void setJumpGridData(JumpResponse data) {
+        mJumpItemList = data.getData();
+        if (mHorRecyAdapter != null){
+            mHorRecyAdapter.notifyDataSetChanged();
+        }
     }
 
-    private void requestForProfessionalData(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(SOCIAL_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        NetworkService networkService = retrofit.create(NetworkService.class);
-        Call<ProfessionalResponse> call = networkService.professionalItems();
-
-        call.enqueue(new Callback<ProfessionalResponse>() {
-            @Override
-            public void onResponse(Call<ProfessionalResponse> call, Response<ProfessionalResponse> response) {
-                if (response != null && response.body() != null &&response.body().getData() != null){
-                    mProfessionalItemList = response.body().getData().getList();
-                    if (mHomeAdapter != null){
-                        mHomeAdapter.notifyItemChanged(1);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProfessionalResponse> call, Throwable t) {
-                Log.d("", String.valueOf(t));
-            }
-        });
+    @Override
+    public void setProfessionalGirlData(ProfessionalResponse data) {
+        mProfessionalItemList = data.getData().getList();
+        if (mHomeAdapter != null){
+            mHomeAdapter.notifyItemChanged(1);
+        }
     }
 
-    private void requestForMainContentData(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(SOCIAL_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        NetworkService networkService = retrofit.create(NetworkService.class);
-        Call<RootListResponse> call = networkService.mainContentItems();
+    @Override
+    public void setMainContentData(RootListResponse data) {
+        mMainContentItemList = data.getData().getList();
+        if (mHomeAdapter != null){
+            mHomeAdapter.notifyDataSetChanged();
+        }
+    }
 
-        call.enqueue(new Callback<RootListResponse>() {
-            @Override
-            public void onResponse(Call<RootListResponse> call, Response<RootListResponse> response) {
-                if (response != null && response.body() != null &&response.body().getData() != null){
-                    mMainContentItemList = response.body().getData().getList();
-                    if (mHomeAdapter != null){
-                        mHomeAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
+    @Override
+    public boolean isFragmentDetach() {
+        return false;
+    }
 
-            @Override
-            public void onFailure(Call<RootListResponse> call, Throwable t) {
-                Log.d("", String.valueOf(t));
-            }
-        });
+    @Override
+    public void setPresenter(@NonNull HomeContract.SubPresenter presenter) {
+
     }
 
     class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>

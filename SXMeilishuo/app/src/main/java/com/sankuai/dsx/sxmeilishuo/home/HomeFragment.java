@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -51,7 +52,7 @@ import static com.sankuai.dsx.sxmeilishuo.network.NetworkService.MCE_MOGU_BASE_U
  * Created by dsx on 16/10/18.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeContract.View {
 
     Banner mBanner;
     List<String> mImages,mTitles;
@@ -69,6 +70,8 @@ public class HomeFragment extends Fragment {
     private ScrollIndicatorView scrollIndicatorView;
     private int unSelectTextColor;
     private Fragment mCurrentSubFragment;
+
+    private HomePresenter mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,7 +111,9 @@ public class HomeFragment extends Fragment {
         });
 
         mBanner = (Banner)view.findViewById(R.id.top_banner);
-        requestForBanner();
+//        requestForBanner();
+        mPresenter = HomePresenter.presenter(this,new HomeModel());
+        mPresenter.getBannerData();
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int widthPixels= dm.widthPixels;
@@ -140,51 +145,6 @@ public class HomeFragment extends Fragment {
         indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
     }
 
-    private void requestForBanner(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MCE_MOGU_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        NetworkService networkService = retrofit.create(NetworkService.class);
-        Call<BannerResponse> call = networkService.bannerItems();
-
-        call.enqueue(new Callback<BannerResponse>() {
-            @Override
-            public void onResponse(Call<BannerResponse> call, Response<BannerResponse> response) {
-                if (response != null && response.body() != null &&response.body().getData() != null){
-                    mImages = new ArrayList<>();
-                    // 先不考虑那么多判空了，崩就崩吧
-                    List<BannerItem> itemList = response.body().getData().getSubData().getList();
-                    if (itemList.size() < 1) return;
-                    for (BannerItem item : itemList){
-                        mImages.add(item.getImage());
-                    }
-                    //简单使用
-                    mBanner.setImages(mImages).setImageLoader(new GlideImageLoader()).start();
-
-                    //设置banner样式
-                    mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
-                    mBanner.isAutoPlay(true);
-                    mBanner.setDelayTime(3000);
-                    mBanner.setIndicatorGravity(BannerConfig.CENTER);
-                    mBanner.start();
-                    mBanner.setOnBannerClickListener(new OnBannerClickListener() {
-                        @Override
-                        public void OnBannerClick(int position) {
-                            Toast.makeText(getActivity().getApplicationContext(), "点击：" + position, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BannerResponse> call, Throwable t) {
-                Log.d("", String.valueOf(t));
-            }
-        });
-    }
-
-
     @Override
     public void onPause()
     {
@@ -198,7 +158,6 @@ public class HomeFragment extends Fragment {
         super.onResume();
         System.out.println("HomeFragment--onResume");
     }
-
 
     //如果你需要考虑更好的体验，可以这么操作
     @Override
@@ -217,6 +176,41 @@ public class HomeFragment extends Fragment {
         mBanner.stopAutoPlay();
     }
 
+    @Override
+    public void setBannerData(BannerResponse response) {
+        mImages = new ArrayList<>();
+        // 先不考虑三四层的判空了，崩就崩吧
+        List<BannerItem> itemList = response.getData().getSubData().getList();
+        if (itemList.size() < 1) return;
+        for (BannerItem item : itemList) {
+            mImages.add(item.getImage());
+        }
+        //简单使用
+        mBanner.setImages(mImages).setImageLoader(new GlideImageLoader()).start();
+
+        //设置banner样式
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        mBanner.isAutoPlay(true);
+        mBanner.setDelayTime(3000);
+        mBanner.setIndicatorGravity(BannerConfig.CENTER);
+        mBanner.start();
+        mBanner.setOnBannerClickListener(new OnBannerClickListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Toast.makeText(getActivity().getApplicationContext(), "点击：" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public boolean isFragmentDetach() {
+        return false;
+    }
+
+    @Override
+    public void setPresenter(@NonNull HomeContract.Presenter presenter) {
+
+    }
 
     private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
 
