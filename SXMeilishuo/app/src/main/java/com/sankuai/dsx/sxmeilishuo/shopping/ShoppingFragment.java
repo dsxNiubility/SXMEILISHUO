@@ -107,10 +107,9 @@ public class ShoppingFragment extends Fragment implements ShoppingContract.View{
         String[] cateLists = {"全部","穿搭","服装","鞋包配","美容美妆","生活方式","品牌"};
         mSubCateItems = Arrays.asList(cateLists);
 
-//        requestForTopData();
         mPresenter = ShoppingPresenter.presenter(this,new ShoppingModel(getLoaderManager()));
         mPresenter.getTopData(getContext());
-        requestForSubData();
+        mPresenter.getSubRecycleViewContentData(0);
     }
 
     private void clickTopLine(View view){
@@ -118,59 +117,6 @@ public class ShoppingFragment extends Fragment implements ShoppingContract.View{
         mPingpai.setSelected(view == mPingpai);
         mTopLeft.setVisibility(mHaowu.isSelected() ? View.VISIBLE : View.INVISIBLE);
         mTopRight.setVisibility(mPingpai.isSelected() ? View.VISIBLE : View.INVISIBLE);
-    }
-
-
-    private void requestForTopData(){
-        // TODO 等会下面通了后 改成异步
-        StringBuilder sb = new StringBuilder();
-        try {
-            InputStream is = getContext().getAssets().open("shopping_top_data.json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line = null;
-            while ((line = reader.readLine()) != null){
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Gson gsonn = new Gson();
-        ShoppingHeaderResponse response = gsonn.fromJson(sb.toString(),ShoppingHeaderResponse.class);
-        if (response.getData() != null) {
-            if (response.getData().getBanner() != null) {
-                mBannerItems = response.getData().getBanner().getList();
-            }
-
-            if (response.getData().getMarketing() != null) {
-                mMarketsItems = response.getData().getMarketing().getList();
-            }
-
-            if (response.getData().getCategory() != null) {
-                mCateItems = response.getData().getCategory().getList();
-            }
-        }
-        mShopAdapter.notifyDataSetChanged();
-    }
-
-    private void requestForSubData(){
-        // TODO 等会下面通了后 改成异步
-        StringBuilder sb = new StringBuilder();
-        try {
-            InputStream is = getContext().getAssets().open("shopping_sub_one.json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line = null;
-            while ((line = reader.readLine()) != null){
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Gson gsonn = new Gson();
-        ShoppingContentResponse response = gsonn.fromJson(sb.toString(),ShoppingContentResponse.class);
-        if (response.getData() != null) {
-            mShoppingInfoItemList = response.getData().getList();
-        }
-//        mShopContentRecyAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -199,8 +145,11 @@ public class ShoppingFragment extends Fragment implements ShoppingContract.View{
     }
 
     @Override
-    public void setSubRecycleViewContent(ShoppingContentResponse data) {
-
+    public void setSubRecycleViewContent(ShoppingContentResponse response) {
+        if (response.getData() != null) {
+            mShoppingInfoItemList = response.getData().getList();
+        }
+        mShopContentRecyAdapter.notifyDataSetChanged();
     }
 
     @Override

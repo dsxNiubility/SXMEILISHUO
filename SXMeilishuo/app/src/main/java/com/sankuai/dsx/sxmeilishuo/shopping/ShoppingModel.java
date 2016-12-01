@@ -3,11 +3,10 @@ package com.sankuai.dsx.sxmeilishuo.shopping;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.util.AsyncListUtil;
 
 import com.google.gson.Gson;
+import com.sankuai.dsx.platform.Base.BaseApplication;
 import com.sankuai.dsx.platform.Base.BaseDataCallBacks;
 import com.sankuai.dsx.platform.Base.BaseLoaderCallBacks;
 import com.sankuai.dsx.platform.Base.BaseModelImplements;
@@ -22,6 +21,7 @@ import java.io.InputStreamReader;
 
 /**
  * Created by dsx on 2016/11/30.
+ * 购物模块M层
  */
 
 
@@ -40,7 +40,7 @@ public class ShoppingModel extends BaseModelImplements{
             protected ShoppingHeaderResponse loadData(Bundle args) {
                 StringBuilder sb = new StringBuilder();
                 try {
-                    InputStream is = context.getAssets().open("shopping_top_data.json");
+                    InputStream is = BaseApplication.application().getAssets().open("shopping_top_data.json");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                     String line = null;
                     while ((line = reader.readLine()) != null){
@@ -66,21 +66,29 @@ public class ShoppingModel extends BaseModelImplements{
      * 获取下部数据的网络请求
      * @param position 坐标
      */
-    public void loadSubData(int position){
-        startLoader(new LoaderManager.LoaderCallbacks<ShoppingContentResponse>() {
+    public void loadSubData(int position,final BaseDataCallBacks<ShoppingContentResponse> goData){
+        startLoader(new BaseLoaderCallBacks<ShoppingContentResponse>() {
             @Override
-            public Loader<ShoppingContentResponse> onCreateLoader(int id, Bundle args) {
-                return null;
+            protected ShoppingContentResponse loadData(Bundle args) {
+                StringBuilder sb = new StringBuilder();
+                try {
+                    InputStream is = BaseApplication.application().getAssets().open("shopping_sub_one.json");
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                    String line = null;
+                    while ((line = reader.readLine()) != null){
+                        sb.append(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Gson gsonn = new Gson();
+                return gsonn.fromJson(sb.toString(),ShoppingContentResponse.class);
             }
 
             @Override
             public void onLoadFinished(Loader<ShoppingContentResponse> loader, ShoppingContentResponse data) {
-
-            }
-
-            @Override
-            public void onLoaderReset(Loader<ShoppingContentResponse> loader) {
-
+                destroyLoader(this);
+                goData.onFinished(data);
             }
         });
     }

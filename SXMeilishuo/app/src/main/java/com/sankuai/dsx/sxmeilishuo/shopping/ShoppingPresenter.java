@@ -3,6 +3,7 @@ package com.sankuai.dsx.sxmeilishuo.shopping;
 import android.content.Context;
 
 import com.sankuai.dsx.platform.Base.BaseDataCallBacks;
+import com.sankuai.dsx.sxmeilishuo.bean.ShoppingContentResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ShoppingHeaderResponse;
 
 /**
@@ -25,9 +26,7 @@ public class ShoppingPresenter implements ShoppingContract.Presenter {
     public void getTopData(Context context) {
         mShoppingModel.loadTopData(context, new BaseDataCallBacks<ShoppingHeaderResponse>() {
             @Override
-            public void doBefore() {
-
-            }
+            public void doBefore() {}
 
             @Override
             public void onFinished(ShoppingHeaderResponse data) {
@@ -41,7 +40,18 @@ public class ShoppingPresenter implements ShoppingContract.Presenter {
 
     @Override
     public void getSubRecycleViewContentData(int position) {
+        mShoppingModel.loadSubData(position, new BaseDataCallBacks<ShoppingContentResponse>() {
+            @Override
+            public void doBefore() {}
 
+            @Override
+            public void onFinished(ShoppingContentResponse data) {
+                if (mView.isFragmentDetach()){
+                    return;
+                }
+                mView.setSubRecycleViewContent(data);
+            }
+        });
     }
 
     @Override
