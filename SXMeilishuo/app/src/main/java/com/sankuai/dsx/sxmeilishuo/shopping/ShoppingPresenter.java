@@ -8,6 +8,7 @@ import com.sankuai.dsx.sxmeilishuo.bean.ShoppingHeaderResponse;
 
 /**
  * Created by dsx on 2016/11/30.
+ *
  */
 
 public class ShoppingPresenter implements ShoppingContract.Presenter {
