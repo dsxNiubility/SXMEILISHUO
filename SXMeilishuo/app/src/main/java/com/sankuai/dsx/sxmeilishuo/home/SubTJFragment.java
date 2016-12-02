@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sankuai.dsx.platform.Utils.DipUtils;
 import com.sankuai.dsx.sxmeilishuo.R;
 import com.sankuai.dsx.sxmeilishuo.bean.JumpResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ProfessionalResponse;
@@ -52,7 +53,7 @@ public class SubTJFragment extends Fragment implements HomeContract.SubView{
         mRootRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mHomeTJAdapter = HomeTJAdapter.tjAdapter(getContext());
         mRootRecyclerView.setAdapter(mHomeTJAdapter);
-        mRootRecyclerView.addItemDecoration(new LinearSpaceItemDecoration(dipToPix(15)));
+        mRootRecyclerView.addItemDecoration(new LinearSpaceItemDecoration(DipUtils.dipToPix(15)));
 
         mRootRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -107,15 +108,5 @@ public class SubTJFragment extends Fragment implements HomeContract.SubView{
     @Override
     public void setPresenter(@NonNull HomeContract.SubPresenter presenter) {
 
-    }
-
-    /**
-     * 根据dip值转化成px值
-     *
-     * @param dip 锚点
-     * @return 像素
-     */
-    private int dipToPix(float dip) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
     }
 }

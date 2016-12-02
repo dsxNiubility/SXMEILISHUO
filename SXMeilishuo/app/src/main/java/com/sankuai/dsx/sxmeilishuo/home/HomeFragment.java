@@ -13,7 +13,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +22,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sankuai.dsx.platform.Utils.DipUtils;
 import com.sankuai.dsx.sxmeilishuo.R;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerItem;
 import com.sankuai.dsx.sxmeilishuo.bean.BannerResponse;
@@ -90,10 +90,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     if (mCurrentSubFragment instanceof SubTJFragment) {
                         SubTJFragment frag = (SubTJFragment) mCurrentSubFragment;
-                        if (mScrollView.getScrollY() < dipToPix(BANNER_HEAGHT)) {
+                        if (mScrollView.getScrollY() < DipUtils.dipToPix(BANNER_HEAGHT)) {
                             return false;
                         } else {
-                            mScrollView.setScrollY(dipToPix(BANNER_HEAGHT));
+                            mScrollView.setScrollY(DipUtils.dipToPix(BANNER_HEAGHT));
                             frag.mNeedScroll = true;
                         }
                     }
@@ -115,10 +115,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         float pageHeight = screenHeight - TABHOST_HEIGHT - TOP_TOOLBAR_HEIGHT - VIEWPAGER_SCROLLBAR_HEIGHT - STATUSBAR_HEIGHT;
 
         Log.d("height", String.valueOf(pageHeight));
-        Log.d("height2", String.valueOf(dipToPix(pageHeight)));
+        Log.d("height2", String.valueOf(DipUtils.dipToPix(pageHeight)));
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.moretab_viewPager);
-        viewPager.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, dipToPix(pageHeight)));
+        viewPager.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, DipUtils.dipToPix(pageHeight)));
         scrollIndicatorView = (ScrollIndicatorView) view.findViewById(R.id.moretab_indicator);
 
         ColorBar colorBar = new ColorBar(getContext(), getContext().getResources().getColor(R.color.meili_pink), 5);
@@ -222,7 +222,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
             }
             TextView textView = (TextView) convertView;
             textView.setText(names[position % names.length]);
-            int padding = dipToPix(10);
+            int padding = DipUtils.dipToPix(10);
             int witdh = getTextWidth(textView);
             textView.setWidth((int) (witdh * 1.6f) + padding );
 
@@ -258,15 +258,4 @@ public class HomeFragment extends Fragment implements HomeContract.View {
             return width;
         }
     }
-
-    /**
-     * 根据dip值转化成px值
-     *
-     * @param dip 锚点
-     * @return 像素
-     */
-    private int dipToPix(float dip) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
-    }
-
 }

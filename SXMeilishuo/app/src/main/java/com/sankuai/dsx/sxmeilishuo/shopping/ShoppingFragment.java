@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sankuai.dsx.platform.Utils.DipUtils;
 import com.sankuai.dsx.sxmeilishuo.R;
 import com.sankuai.dsx.sxmeilishuo.bean.ShoppingContentResponse;
 import com.sankuai.dsx.sxmeilishuo.bean.ShoppingHeaderResponse;
@@ -60,7 +61,7 @@ public class ShoppingFragment extends Fragment implements ShoppingContract.View{
         LinearLayoutManager linearManager = new LinearLayoutManager(getContext());
         linearManager.setOrientation(LinearLayoutManager.VERTICAL);
         mAllRecycleView.setLayoutManager(linearManager);
-        mAllRecycleView.addItemDecoration(new LinearSpaceItemDecoration(dipToPix(15)));
+        mAllRecycleView.addItemDecoration(new LinearSpaceItemDecoration(DipUtils.dipToPix(15)));
         clickTopLine(mHaowu);
 
         String[] cateLists = {"全部","穿搭","服装","鞋包配","美容美妆","生活方式","品牌"};
@@ -120,15 +121,5 @@ public class ShoppingFragment extends Fragment implements ShoppingContract.View{
     @Override
     public boolean isFragmentDetach() {
         return false;
-    }
-
-    /**
-     * 根据dip值转化成px值
-     *
-     * @param dip 锚点
-     * @return 像素
-     */
-    private int dipToPix(float dip) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
     }
 }
